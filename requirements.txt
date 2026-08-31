@@ -1,0 +1,49 @@
+# ── Core ML ────────────────────────────────────────────────────────────
+torch==2.3.0                  # CPU build is fine; Colab has GPU
+numpy==1.26.4
+pandas==2.2.2
+scikit-learn==1.5.0
+tqdm==4.66.4
+
+# ── Our own seq2seq translation model ──────────────────────────────────
+# (no IndicTrans2 — we build our own encoder-decoder)
+sacremoses==0.1.1             # tokenization / detokenization
+sentencepiece==0.2.0          # BPE tokenizer we train ourselves
+sacrebleu==2.4.2              # BLEU evaluation
+
+# ── Our own language model (GPT-2 style, trained from scratch on domain data)
+tokenizers==0.19.1            # HuggingFace tokenizers — train our own BPE vocab
+
+# ── Recommendation + adaptive engine ───────────────────────────────────
+scipy==1.13.1                 # Thompson sampling beta distribution
+faiss-cpu==1.8.0              # vector search for scheme embeddings
+sentence-transformers==2.7.0  # multilingual embeddings (MiniLM — CPU fine)
+
+# ── ASR: Vosk (fully offline, CPU, no API) ─────────────────────────────
+vosk==0.3.45
+pyaudio==0.2.14
+soundfile==0.12.1
+wave                          # stdlib
+
+# ── TTS: pyttsx3 (offline, uses system voices) + gTTS fallback ─────────
+pyttsx3==2.90
+
+# ── Our own API server ─────────────────────────────────────────────────
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+python-multipart==0.0.9
+
+# ── Data collection ────────────────────────────────────────────────────
+requests==2.32.2
+beautifulsoup4==4.12.3
+datasets==2.19.1              # load Samanantar / AI Kosh datasets
+
+# ── Channels ───────────────────────────────────────────────────────────
+python-telegram-bot==21.3
+twilio==9.1.0                 # WhatsApp webhook receiving only
+# IVR: Asterisk AGI — uses stdlib (socket, subprocess), no pip package needed
+
+# ── Utilities ──────────────────────────────────────────────────────────
+python-dotenv==1.0.1
+joblib==1.4.2
+jiwer==3.0.4                  # WER metric for ASR evaluation
