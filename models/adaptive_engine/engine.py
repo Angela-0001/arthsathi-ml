@@ -18,6 +18,14 @@ Member B owns this file.
 import math
 import random
 from typing import List, Tuple
+from pathlib import Path
+import sys
+
+# Handle both direct run and package import
+_pkg_root = str(Path(__file__).parent.parent.parent)
+if _pkg_root not in sys.path:
+    sys.path.insert(0, _pkg_root)
+
 from models.adaptive_engine.storage import load, save, get_or_init
 
 

@@ -9,6 +9,11 @@ import pickle
 import numpy as np
 from pathlib import Path
 from typing import List, Dict, Any
+import sys
+
+_pkg_root = str(Path(__file__).parent.parent.parent)
+if _pkg_root not in sys.path:
+    sys.path.insert(0, _pkg_root)
 
 from models.adaptive_engine.engine import BanditWeightEngine
 
