@@ -36,7 +36,7 @@ class MultiHeadAttention(nn.Module):
 
         scores = (Q @ K.transpose(-2, -1)) / math.sqrt(self.d_k)
         if mask is not None:
-            scores = scores.masked_fill(mask == 0, -1e9)
+            scores = scores.masked_fill(~mask, -1e9)
         attn = self.dropout(F.softmax(scores, dim=-1))
 
         x = (attn @ V).transpose(1, 2).contiguous().view(B, -1, self.n_heads * self.d_k)
@@ -171,7 +171,7 @@ class Seq2SeqTranslator(nn.Module):
     @staticmethod
     def make_causal_mask(sz: int, device) -> torch.Tensor:
         """Upper-triangular mask to prevent decoder attending to future tokens."""
-        return torch.tril(torch.ones(sz, sz, device=device)).unsqueeze(0).unsqueeze(0)
+        return torch.tril(torch.ones(sz, sz, device=device, dtype=torch.bool)).unsqueeze(0).unsqueeze(0)
 
     @staticmethod
     def make_pad_mask(seq: torch.Tensor, pad_idx: int) -> torch.Tensor:
